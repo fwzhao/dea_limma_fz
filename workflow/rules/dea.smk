@@ -14,16 +14,12 @@ rule dea:
     log:
         os.path.join("logs","rules","dea_{analysis}.log"),
     params:
-        partition=config.get("partition"),
         feature_annotation = config["feature_annotation"],
         reference_levels = config["reference_levels"],
         formula = lambda w: annot_dict["{}".format(w.analysis)]["formula"],
-        formula_batch = lambda w: annot_dict["{}".format(w.analysis)]["formula_batch"],
         block_var = lambda w: annot_dict["{}".format(w.analysis)]["block_var"],
-        batch_var = lambda w: annot_dict["{}".format(w.analysis)]["batch_var"],
         comparisons = lambda w: annot_dict["{}".format(w.analysis)]["comparisons"],
         calcNormFactors_method = lambda w: annot_dict["{}".format(w.analysis)]["calcNormFactors_method"],
-        filterByExpr = lambda w: annot_dict["{}".format(w.analysis)]["filterByExpr"],
         voom = lambda w: annot_dict["{}".format(w.analysis)]["voom"],
         eBayes = lambda w: annot_dict["{}".format(w.analysis)]["eBayes"],
         limma_trend = lambda w: annot_dict["{}".format(w.analysis)]["limma_trend"],
@@ -73,7 +69,6 @@ checkpoint aggregate:
     log:
         os.path.join("logs","rules","aggregate_{analysis}.log"),
     params:
-        partition=config.get("partition"),
         score_formula = config["score_formula"],
         adj_pval = config["filters"]["adj_pval"],
         lfc = config["filters"]["lfc"],
@@ -92,8 +87,6 @@ rule gather_feature_lists:
     threads: 1
     log:
         os.path.join("logs","rules","gather_feature_lists_{analysis}.log"),
-    params:
-        partition=config.get("partition"),
     shell:
         """
         echo '{input}' | tr ' ' '\n' > {output}
