@@ -1,3 +1,0 @@
-default-resources:
-    slurm_partition: shortq
-    slurm_extra: "'--qos=shortq'"

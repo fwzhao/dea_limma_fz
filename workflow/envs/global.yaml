@@ -1,7 +1,6 @@
 channels:
   - conda-forge
   - bioconda
-  - nodefaults
+  - defaults
 dependencies:
-  - numpy=2.0.1
-  - pandas=2.2.2
+  - patsy=0.5.6
